@@ -1,55 +1,56 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Dashboard | Queridômetro{% endblock %}
 
 {% block content %}
 <div class="dashboard-container">
-    <!-- Seção: Suas Reações Secretas -->
-    <div class="glass-card">
+    <!-- Suas Reações -->
+    <div class="dashboard-card reactions-card">
         <div class="card-header">
             <i class="fas fa-user-secret"></i>
             <h2>Suas Reações Secretas</h2>
         </div>
         
         {% if my_reactions %}
-        <div class="emoji-showcase">
+        <div class="emoji-grid">
             {% for reaction in my_reactions %}
-            <div class="emoji-card">
-                <div class="emoji">{{ reaction['reaction'] }}</div>
-                <div class="emoji-count">x{{ reaction['count'] }}</div>
+            <div class="emoji-tile">
+                <span class="emoji">{{ reaction['reaction'] }}</span>
+                <span class="emoji-count">{{ reaction['count'] }}x</span>
             </div>
             {% endfor %}
         </div>
-        <div class="disclaimer">
-            <i class="fas fa-info-circle"></i>
-            <span>Você não pode ver quem enviou estas reações</span>
+        <div class="card-note">
+            <i class="fas fa-info-circle"></i> Você não sabe quem enviou estas reações
         </div>
         {% else %}
         <div class="empty-state">
             <i class="far fa-surprise"></i>
-            <p>Você ainda não recebeu nenhuma reação</p>
+            <p>Você ainda não recebeu reações</p>
         </div>
         {% endif %}
     </div>
 
-    <!-- Seção: Termômetro da Casa -->
-    <div class="glass-card">
+    <!-- Termômetro da Casa -->
+    <div class="dashboard-card thermometer-card">
         <div class="card-header">
-            <i class="fas fa-fire-alt"></i>
+            <i class="fas fa-fire"></i>
             <h2>Termômetro da Casa</h2>
         </div>
         
-        <div class="thermometer">
+        <div class="thermometer-list">
             {% for reaction in all_reactions %}
             <div class="thermometer-item">
-                <div class="user-info">
+                <div class="user-badge">
                     <div class="user-avatar">{{ reaction['username'][0]|upper }}</div>
                     <span>{{ reaction['username'] }}</span>
                 </div>
+                
                 <div class="reaction-display">
                     <span class="reaction-emoji">{{ reaction['reaction'] }}</span>
-                    <div class="reaction-bar" style="width: {{ (reaction['count'] / max_count) * 100 }}%">
-                        <span class="reaction-count">{{ reaction['count'] }}</span>
+                    <div class="reaction-meter">
+                        <div class="meter-bar" style="width: {{ (reaction['count'] / max_count) * 100 }}%"></div>
+                        <span class="meter-count">{{ reaction['count'] }}</span>
                     </div>
                 </div>
             </div>
