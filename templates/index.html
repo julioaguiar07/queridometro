@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Início{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Enviar reações</h2>
+    <p>Escolha um participante e envie sua reação:</p>
+    
+    <div class="reaction-grid">
+        {% for user in users %}
+            <div class="reaction-item">
+                <form action="{{ url_for('send_reaction') }}" method="post">
+                    <input type="hidden" name="receiver_id" value="{{ user['id'] }}">
+                    <h3>{{ user['username'] }}</h3>
+                    <div class="reaction-options">
+                        <select name="reaction" class="form-control" required>
+                            <option value="">Selecione uma reação</option>
+                            <option value="❤️">❤️ Gosta muito</option>
+                            <option value="😊">😊 Gosta</option>
+                            <option value="🤩">🤩 Admira</option>
+                            <option value="😡">😡 Brava</option>
+                            <option value="💣">💣 Adversário</option>
+                            <option value="🗡️">🗡️ Traição</option>
+                            <option value="💩">💩 Não gosta</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+                        <i class="fas fa-paper-plane"></i> Enviar
+                    </button>
+                </form>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Suas reações recebidas</h2>
+    
+    {% if reactions %}
+        <div class="reactions-list">
+            {% for reaction in reactions %}
+                <div class="reaction-item">
+                    <div class="reaction-emoji">{{ reaction['reaction'] }}</div>
+                    <p><strong>{{ reaction['username'] }}</strong> em {{ reaction['timestamp'] }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Você ainda não recebeu nenhuma reação.</p>
+    {% endif %}
+</div>
+{% endblock %}
