@@ -133,15 +133,28 @@ def send_reaction():
 @login_required
 def dashboard():
     db = get_db()
-    reactions = db.execute('''
-        SELECT u.username, r.reaction, r.timestamp 
-        FROM reactions r
-        JOIN users u ON r.sender_id = u.id
-        WHERE r.receiver_id = ?
-        ORDER BY r.timestamp DESC
+    
+    # Reações que o usuário atual recebeu (sem mostrar quem enviou)
+    my_reactions = db.execute('''
+        SELECT reaction, COUNT(*) as count 
+        FROM reactions 
+        WHERE receiver_id = ?
+        GROUP BY reaction
+        ORDER BY count DESC
     ''', (session['user_id'],)).fetchall()
     
-    return render_template('dashboard.html', reactions=reactions)
+    # Ranking geral de todos os participantes (emoji counts)
+    all_reactions = db.execute('''
+        SELECT u.username, r.reaction, COUNT(*) as count
+        FROM reactions r
+        JOIN users u ON r.receiver_id = u.id
+        GROUP BY u.username, r.reaction
+        ORDER BY u.username, count DESC
+    ''').fetchall()
+    
+    return render_template('dashboard.html', 
+                         my_reactions=my_reactions,
+                         all_reactions=all_reactions)
 
 if __name__ == '__main__':
     init_db()
