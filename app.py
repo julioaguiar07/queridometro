@@ -134,7 +134,7 @@ def send_reaction():
 def dashboard():
     db = get_db()
     
-    # Reações que o usuário atual recebeu (sem mostrar quem enviou)
+    # Suas reações
     my_reactions = db.execute('''
         SELECT reaction, COUNT(*) as count 
         FROM reactions 
@@ -143,18 +143,22 @@ def dashboard():
         ORDER BY count DESC
     ''', (session['user_id'],)).fetchall()
     
-    # Ranking geral de todos os participantes (emoji counts)
+    # Ranking geral
     all_reactions = db.execute('''
         SELECT u.username, r.reaction, COUNT(*) as count
         FROM reactions r
         JOIN users u ON r.receiver_id = u.id
         GROUP BY u.username, r.reaction
-        ORDER BY u.username, count DESC
+        ORDER BY count DESC
     ''').fetchall()
     
-    return render_template('dashboard.html', 
+    # Calcula o máximo para normalizar as barras
+    max_count = max([r['count'] for r in all_reactions]) if all_reactions else 1
+    
+    return render_template('dashboard.html',
                          my_reactions=my_reactions,
-                         all_reactions=all_reactions)
+                         all_reactions=all_reactions,
+                         max_count=max_count)
 
 if __name__ == '__main__':
     init_db()
