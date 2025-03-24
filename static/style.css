@@ -1,61 +1,146 @@
-/* Estilos para o Dashboard */
+/* Dashboard Moderno */
 .dashboard-container {
     display: grid;
     gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.reactions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
     gap: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: #fff;
 }
 
-.reaction-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 1rem;
+.card-header i {
+    font-size: 1.5rem;
+    color: #4895ef;
+}
+
+/* Seção de Emojis */
+.emoji-showcase {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1.5rem;
+}
+
+.emoji-card {
+    background: rgba(67, 97, 238, 0.15);
+    border-radius: 15px;
+    padding: 1.5rem;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(67, 97, 238, 0.3);
 }
 
-.reaction-card:hover {
-    transform: scale(1.05);
+.emoji-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
 }
 
-.emoji-big {
-    font-size: 2rem;
-    display: block;
+.emoji {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
 }
 
-.count {
+.emoji-count {
     font-size: 0.9rem;
-    color: var(--accent);
+    color: #4895ef;
+    font-weight: bold;
 }
 
-.hint {
-    margin-top: 1rem;
+/* Termômetro */
+.thermometer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.thermometer-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    min-width: 150px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #4361ee, #3f37c9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.reaction-display {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.reaction-emoji {
+    font-size: 1.5rem;
+    min-width: 30px;
+}
+
+.reaction-bar {
+    height: 25px;
+    background: linear-gradient(90deg, #f72585, #b5179e);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    transition: width 1s ease;
+}
+
+.reaction-count {
+    color: white;
     font-size: 0.8rem;
-    opacity: 0.8;
+    font-weight: bold;
 }
 
-.ranking-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-}
-
-.ranking-table th, .ranking-table td {
-    padding: 0.75rem;
-    text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.ranking-table th {
-    background-color: rgba(67, 97, 238, 0.2);
-}
-
-.emoji-cell {
-    font-size: 1.2rem;
+/* Estados vazios */
+.empty-state {
     text-align: center;
+    padding: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.disclaimer {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
 }
