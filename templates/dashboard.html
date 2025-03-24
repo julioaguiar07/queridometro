@@ -4,45 +4,57 @@
 
 {% block content %}
 <div class="dashboard-container">
-    <!-- Seção: Suas Reações (anonimizadas) -->
-    <div class="card">
-        <h2><i class="fas fa-user-secret"></i> Suas Reações Secretas</h2>
+    <!-- Seção: Suas Reações Secretas -->
+    <div class="glass-card">
+        <div class="card-header">
+            <i class="fas fa-user-secret"></i>
+            <h2>Suas Reações Secretas</h2>
+        </div>
+        
         {% if my_reactions %}
-            <div class="reactions-grid">
-                {% for reaction in my_reactions %}
-                    <div class="reaction-card">
-                        <span class="emoji-big">{{ reaction['reaction'] }}</span>
-                        <span class="count">x{{ reaction['count'] }}</span>
-                    </div>
-                {% endfor %}
+        <div class="emoji-showcase">
+            {% for reaction in my_reactions %}
+            <div class="emoji-card">
+                <div class="emoji">{{ reaction['reaction'] }}</div>
+                <div class="emoji-count">x{{ reaction['count'] }}</div>
             </div>
-            <p class="hint"><i class="fas fa-info-circle"></i> Você não pode ver quem enviou estas reações</p>
+            {% endfor %}
+        </div>
+        <div class="disclaimer">
+            <i class="fas fa-info-circle"></i>
+            <span>Você não pode ver quem enviou estas reações</span>
+        </div>
         {% else %}
-            <p>Você ainda não recebeu nenhuma reação.</p>
+        <div class="empty-state">
+            <i class="far fa-surprise"></i>
+            <p>Você ainda não recebeu nenhuma reação</p>
+        </div>
         {% endif %}
     </div>
 
-    <!-- Seção: Ranking Geral (visível a todos) -->
-    <div class="card">
-        <h2><i class="fas fa-chart-bar"></i> Ranking Geral</h2>
-        <table class="ranking-table">
-            <thead>
-                <tr>
-                    <th>Participante</th>
-                    <th>Reação</th>
-                    <th>Quantidade</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reaction in all_reactions %}
-                    <tr>
-                        <td>{{ reaction['username'] }}</td>
-                        <td class="emoji-cell">{{ reaction['reaction'] }}</td>
-                        <td>{{ reaction['count'] }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <!-- Seção: Termômetro da Casa -->
+    <div class="glass-card">
+        <div class="card-header">
+            <i class="fas fa-fire-alt"></i>
+            <h2>Termômetro da Casa</h2>
+        </div>
+        
+        <div class="thermometer">
+            {% for reaction in all_reactions %}
+            <div class="thermometer-item">
+                <div class="user-info">
+                    <div class="user-avatar">{{ reaction['username'][0]|upper }}</div>
+                    <span>{{ reaction['username'] }}</span>
+                </div>
+                <div class="reaction-display">
+                    <span class="reaction-emoji">{{ reaction['reaction'] }}</span>
+                    <div class="reaction-bar" style="width: {{ (reaction['count'] / max_count) * 100 }}%">
+                        <span class="reaction-count">{{ reaction['count'] }}</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
