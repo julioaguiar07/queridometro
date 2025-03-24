@@ -3,23 +3,33 @@
 {% block title %}Cadastro{% endblock %}
 
 {% block content %}
-<div class="card">
-    <h2>Criar nova conta</h2>
-    <form action="{{ url_for('register') }}" method="post">
-        <div class="form-group">
-            <label for="username">Nome de usuário</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <i class="fas fa-user-plus auth-icon"></i>
+            <h2>Junte-se ao Queridômetro</h2>
+            <p class="auth-subtitle">Crie sua conta para começar a enviar reações secretas</p>
         </div>
-        <div class="form-group">
-            <label for="password">Senha</label>
-            <input type="password" id="password" name="password" class="form-control" required>
+
+        <form action="{{ url_for('register') }}" method="post" class="auth-form">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" name="username" placeholder="Nome de usuário" required>
+            </div>
+            
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Senha" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fas fa-user-plus"></i> Criar Conta
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Já tem uma conta? <a href="{{ url_for('login') }}" class="auth-link">Faça login aqui</a></p>
         </div>
-        <button type="submit" class="btn btn-primary">
-            <i class="fas fa-user-plus"></i> Cadastrar
-        </button>
-    </form>
-    <p style="margin-top: 1rem;">
-        Já tem uma conta? <a href="{{ url_for('login') }}">Faça login aqui</a>
-    </p>
+    </div>
 </div>
 {% endblock %}
